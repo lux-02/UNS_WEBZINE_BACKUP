@@ -1,4 +1,4 @@
-name: Deploy to GCP
+name: Deploy to Lightsail
 
 on:
   push:
@@ -10,23 +10,29 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Deploy to GCP
+      - name: Deploy to Lightsail
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.GCP_HOST }}
-          username: ${{ secrets.GCP_USERNAME }}
-          key: ${{ secrets.GCP_SSH_KEY }}
-          port: ${{ secrets.GCP_PORT }}
+          host: ${{ secrets.LIGHTSAIL_HOST }}
+          username: ${{ secrets.LIGHTSAIL_USERNAME }}
+          key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
+          port: 22
           script: |
-            cd ~/UNS_WEBZINE_BACKUP/strapi-cms
+            cd ~/UNS_WEBZINE_BACKUP
 
             git pull origin main
 
             # Strapi
+            cd strapi-cms
             npm ci --omit=dev
-            NODE_ENV=production npm run build -- --no-lint
-            pm2 restart strapi
+            NODE_ENV=production npm run build
+            pm2 restart strapi || pm2 start npm --name "strapi" -- start
 
             # Next.js
-            NODE_ENV=production npm run build -- --no-lint
-            pm2 restart uns-web   # ← 이름 맞춤!
+            cd ..
+            npm ci --omit=dev
+            NODE_ENV=production npm run build
+            pm2 restart uns-web || pm2 start npm --name "uns-web" -- run start -- -p 3000
+
+            pm2 save
+            echo "Deployed in $(date)"
