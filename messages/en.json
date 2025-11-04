@@ -1,0 +1,101 @@
+{
+  "nav": {
+    "home": "Home",
+    "story": "UNs STORY",
+    "activities": "Webzine"
+  },
+  "home": {
+    "hero": {
+      "title": "Peace Connects Us",
+      "subtitle": "The 2025 UNs Digital Hub",
+      "description": "Documenting our journey towards peace, global understanding, and meaningful connections through the voices of youth.",
+      "discoverStory": "Discover Our Story",
+      "exploreActivities": "Explore Activities"
+    },
+    "stats": {
+      "year": "2025",
+      "yearSubtitle": "Year of Peace",
+      "global": "Global",
+      "globalSubtitle": "Youth Movement",
+      "together": "Together",
+      "togetherSubtitle": "We Build Peace"
+    },
+    "cta": {
+      "title": "Join the Journey",
+      "description": "Explore our activities, stories, and the impact we're making together in building a peaceful world.",
+      "viewTimeline": "View Our Timeline"
+    }
+  },
+  "story": {
+    "hero": {
+      "title": "UNs STORY",
+      "subtitle": "Who we are and what we stand for"
+    },
+    "vision": {
+      "title": "Our Vision",
+      "description1": "We are the 2025 Busan UNs Supporters - a diverse community of passionate young people from around the world, united by a shared commitment to peace, understanding, and positive global change.",
+      "description2": "Through our activities, we strive to embody the values of the United Nations, working together to create a more peaceful and interconnected world, one action at a time."
+    },
+    "values": {
+      "title": "Core Values",
+      "globalYouth": {
+        "title": "Global Youth",
+        "description": "Empowering young voices to lead change and bridge cultures"
+      },
+      "peacefulDialogue": {
+        "title": "Peaceful Dialogue",
+        "description": "Fostering understanding through open and respectful communication"
+      },
+      "dynamicAction": {
+        "title": "Dynamic Action",
+        "description": "Turning passion into tangible impact through collaborative efforts"
+      },
+      "inclusiveCommunity": {
+        "title": "Inclusive Community",
+        "description": "Creating spaces where every voice is heard and valued"
+      }
+    },
+    "mission": {
+      "title": "Our Mission",
+      "item1": "Document and preserve our journey towards peace and understanding",
+      "item2": "Create meaningful connections between diverse cultures and communities",
+      "item3": "Inspire future generations to continue the work of building a peaceful world",
+      "item4": "Provide a platform for youth voices in global peace initiatives"
+    },
+    "partners": {
+      "title": "Our Partners",
+      "description": "We work closely with local and international organizations who share our vision for a peaceful future. Together, we amplify our impact and reach."
+    },
+    "cta": {
+      "title": "Be Part of Our Story",
+      "description": "Explore our activities and see how we're making a difference",
+      "viewTimeline": "View Our Timeline"
+    }
+  },
+  "timeline": {
+    "hero": {
+      "title": "Activities & Archive",
+      "subtitle": "Explore our journey through the events that shaped our mission for peace"
+    },
+    "ourJourney": "Our Journey"
+  },
+  "events": {
+    "backToTimeline": "Back to Timeline",
+    "videos": "Videos",
+    "photoGallery": "Photo Gallery",
+    "exploreMore": "Explore More Events",
+    "noImages": "No images available"
+  },
+  "footer": {
+    "title": "Peace Connects Us",
+    "description": "2025 Busan UNs Digital Hub - Documenting our journey towards peace and global understanding.",
+    "quickLinks": "Quick Links",
+    "connect": "Connect",
+    "rights": "© 2025 Busan UNs Supporters. All rights reserved."
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "Sorry, the page you're looking for doesn't exist.",
+    "goHome": "Go Home"
+  }
+}

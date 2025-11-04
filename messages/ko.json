@@ -1,0 +1,101 @@
+{
+  "nav": {
+    "home": "홈",
+    "story": "UNs 스토리",
+    "activities": "웹진"
+  },
+  "home": {
+    "hero": {
+      "title": "기억을 기록으로, 기록을 행동으로.",
+      "subtitle": "2025 부산 유엔위크 서포터즈 유엔즈 (UNs) 웹진 플랫폼",
+      "description": "평화도시 부산을 중심으로 시민과 함께 평화를 만들어갑니다.",
+      "discoverStory": "유엔즈 소개",
+      "exploreActivities": "최신 웹진 보기"
+    },
+    "stats": {
+      "year": "9개월 활동",
+      "yearSubtitle": "2025년 4월 ~ 12월",
+      "global": "글로벌",
+      "globalSubtitle": "국내외 청년 110명",
+      "together": "평화도시 부산",
+      "togetherSubtitle": "부산에서 평화를 만들어갑니다"
+    },
+    "cta": {
+      "title": "유엔즈와 함께 기록하고, 행동해요",
+      "description": "평화로운 세상을 만들기 위해 함께하는 우리의 활동을 만나보세요.",
+      "viewTimeline": "지금 알아보기"
+    }
+  },
+  "story": {
+    "hero": {
+      "title": "유엔즈 스토리",
+      "subtitle": "우리는 누구이며 무엇을 지향하는가"
+    },
+    "vision": {
+      "title": "우리의 비전",
+      "description1": "우리는 2025 부산 유엔즈 서포터즈입니다 - 평화, 이해, 그리고 긍정적인 글로벌 변화에 대한 공동의 헌신으로 하나 된 전 세계의 열정적인 청년들의 다양한 커뮤니티입니다.",
+      "description2": "우리의 활동을 통해, 우리는 유엔의 가치를 구현하고, 한 번에 하나의 행동으로 더 평화롭고 연결된 세상을 만들기 위해 함께 노력합니다."
+    },
+    "values": {
+      "title": "핵심 가치",
+      "globalYouth": {
+        "title": "글로벌 청년",
+        "description": "변화를 이끌고 문화를 연결하는 청년 목소리의 힘"
+      },
+      "peacefulDialogue": {
+        "title": "평화로운 대화",
+        "description": "개방적이고 존중하는 소통을 통한 이해 증진"
+      },
+      "dynamicAction": {
+        "title": "역동적 행동",
+        "description": "협력적 노력을 통해 열정을 실질적인 영향으로 전환"
+      },
+      "inclusiveCommunity": {
+        "title": "포용적 커뮤니티",
+        "description": "모든 목소리가 들리고 존중받는 공간 창출"
+      }
+    },
+    "mission": {
+      "title": "우리의 미션",
+      "item1": "평화와 이해를 향한 우리의 여정을 기록하고 보존",
+      "item2": "다양한 문화와 커뮤니티 간의 의미 있는 연결 창출",
+      "item3": "평화로운 세상을 만드는 일을 계속할 미래 세대에게 영감 제공",
+      "item4": "글로벌 평화 이니셔티브에서 청년 목소리를 위한 플랫폼 제공"
+    },
+    "partners": {
+      "title": "우리의 파트너",
+      "description": "평화로운 미래에 대한 비전을 공유하는 지역 및 국제 조직들과 긴밀히 협력합니다. 함께, 우리는 우리의 영향력과 도달 범위를 확대합니다."
+    },
+    "cta": {
+      "title": "우리의 이야기에 동참하세요",
+      "description": "우리의 활동을 탐색하고 우리가 만드는 변화를 확인하세요",
+      "viewTimeline": "타임라인 보기"
+    }
+  },
+  "timeline": {
+    "hero": {
+      "title": "활동 & 아카이브",
+      "subtitle": "우리의 평화 미션을 형성한 이벤트들의 여정을 탐험하세요"
+    },
+    "ourJourney": "우리의 여정"
+  },
+  "events": {
+    "backToTimeline": "타임라인으로 돌아가기",
+    "videos": "영상",
+    "photoGallery": "사진 갤러리",
+    "exploreMore": "더 많은 이벤트 탐색",
+    "noImages": "이미지가 없습니다"
+  },
+  "footer": {
+    "title": "2025 유엔즈 웹진",
+    "description": "평화도시 부산을 중심으로 시민과 함께 평화를 만들어갑니다.",
+    "quickLinks": "빠른 링크",
+    "connect": "연결",
+    "rights": "© 2025 부산 유엔즈 서포터즈. All rights reserved."
+  },
+  "notFound": {
+    "title": "페이지를 찾을 수 없습니다",
+    "description": "죄송합니다. 찾으시는 페이지가 존재하지 않습니다.",
+    "goHome": "홈으로 가기"
+  }
+}
