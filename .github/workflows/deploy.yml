@@ -28,14 +28,14 @@ jobs:
 
             # ── Strapi 배포 ──
             cd strapi-cms
-            npm ci --omit=dev               # production만 빠르게 설치
+            npm ci                          # 빌드에 devDependencies 필요
             NODE_ENV=production npm run build
-            pm2 restart strapi || pm2 start npm --name "strapi" -- run start:prod
+            pm2 restart strapi || pm2 start npm --name "strapi" -- start
 
             # ── Next.js 배포 ──
             cd ..
-            npm ci --omit=dev
+            npm ci
             npm run build
-            pm2 restart nextjs || pm2 start npm --name "nextjs" -- run start
+            pm2 restart nextjs || pm2 start npm --name "nextjs" -- start
 
             echo "🚀 배포 완료!"

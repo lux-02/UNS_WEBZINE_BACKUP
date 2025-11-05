@@ -4,8 +4,6 @@ const withNextIntl = createNextIntlPlugin("./i18n.ts");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Disable Turbopack to use Webpack for better Tailwind CSS support
-  turbopack: false,
   images: {
     remotePatterns: [
       {
