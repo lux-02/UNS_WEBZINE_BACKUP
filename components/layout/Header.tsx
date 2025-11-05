@@ -83,7 +83,7 @@ export default function Header() {
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
+              initial={{ opacity: 1, height: "auto" }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               className="md:hidden overflow-hidden"

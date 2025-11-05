@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 export default function Home() {
   const t = useTranslations("home");
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
   // Background images - replace with your uploaded images
   const backgroundImages = [
@@ -15,6 +16,11 @@ export default function Home() {
     "/images/slide2.jpg",
     "/images/slide3.jpg",
   ];
+
+  // Client-side mounting
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Auto-slide effect
   useEffect(() => {
@@ -72,7 +78,7 @@ export default function Home() {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate="visible"
+          animate={mounted ? "visible" : "hidden"}
           className="relative z-20 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto"
         >
           <motion.div
@@ -129,7 +135,7 @@ export default function Home() {
         {/* Scroll Indicator */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          animate={mounted ? { opacity: 1 } : { opacity: 0 }}
           transition={{ delay: 1.5 }}
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
         >

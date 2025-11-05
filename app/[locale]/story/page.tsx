@@ -9,7 +9,7 @@ export default function StoryPage() {
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
 
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 1 },
     visible: {
       opacity: 1,
       transition: {
@@ -19,7 +19,7 @@ export default function StoryPage() {
   };
 
   const textVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 1, y: 0 },
     visible: {
       opacity: 1,
       y: 0,
@@ -35,7 +35,7 @@ export default function StoryPage() {
       {/* Hero Section */}
       <section className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-500 via-cyan-500 to-blue-600">
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 1, scale: 1 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1 }}
           className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-white"

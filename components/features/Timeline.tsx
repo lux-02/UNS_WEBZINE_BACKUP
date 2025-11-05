@@ -22,7 +22,7 @@ export default function Timeline({ events }: TimelineProps) {
     <div ref={containerRef} className="relative py-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 1, y: 0 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-4xl sm:text-5xl font-bold text-center mb-16 text-gray-900 dark:text-white"
@@ -44,7 +44,7 @@ export default function Timeline({ events }: TimelineProps) {
             {events.map((event, index) => (
               <motion.div
                 key={event.id}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                initial={{ opacity: 1, x: 0 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}

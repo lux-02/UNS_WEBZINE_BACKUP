@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import "../globals.css";
+import Script from "next/script";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
+import "@/app/globals.css";
 
 export const metadata: Metadata = {
   title: "UNs 2025 | Peace Connects Us",
