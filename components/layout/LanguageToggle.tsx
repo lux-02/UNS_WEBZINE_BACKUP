@@ -14,7 +14,11 @@ export default function LanguageToggle() {
   useEffect(() => {
     setMounted(true);
     // Get current locale from pathname or localStorage
-    const pathLocale = pathname.startsWith("/en") ? "en" : pathname.startsWith("/ko") ? "ko" : null;
+    const pathLocale = pathname.startsWith("/en")
+      ? "en"
+      : pathname.startsWith("/ko")
+      ? "ko"
+      : null;
     const savedLocale = localStorage.getItem("locale") as Locale | null;
     const initialLocale = pathLocale || savedLocale || "ko";
     setLocale(initialLocale);
@@ -44,7 +48,7 @@ export default function LanguageToggle() {
       className="px-3 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors text-sm font-medium text-gray-300 hover:text-white"
       aria-label="Toggle language"
     >
-      {locale === "ko" ? "EN" : "한글"}
+      {locale === "ko" ? "🌐 English" : " 🇰🇷 한국어"}
     </button>
   );
 }

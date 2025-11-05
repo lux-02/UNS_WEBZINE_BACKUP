@@ -101,7 +101,7 @@ export default function Home() {
 
           <motion.p
             variants={itemVariants}
-            className="text-xl sm:text-2xl text-white mb-8 max-w-3xl mx-auto drop-shadow-lg"
+            className="text-xl sm:text-2xl text-white font-bold mb-8 max-w-3xl mx-auto drop-shadow-lg"
           >
             {t("hero.subtitle")}
           </motion.p>
@@ -195,8 +195,11 @@ export default function Home() {
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
             {t("cta.title")}
           </h2>
+          <p className="text-xl text-blue-50 mb-4 max-w-2xl mx-auto">
+            {t("cta.description1")}
+          </p>
           <p className="text-xl text-blue-50 mb-8 max-w-2xl mx-auto">
-            {t("cta.description")}
+            {t("cta.description2")}
           </p>
           <Link
             href="/timeline"

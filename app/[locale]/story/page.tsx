@@ -69,6 +69,37 @@ export default function StoryPage() {
             <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
               {t("vision.description2")}
             </p>
+            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+              {t("vision.description3")}
+            </p>
+            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+              {t("vision.description4")}
+            </p>
+          </motion.div>
+
+          {/* Our Mission */}
+          <motion.div variants={textVariants} className="space-y-6">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
+              {t("mission.title")}
+            </h2>
+            <div className="space-y-4">
+              {[t("mission.item1"), t("mission.item2"), t("mission.item3")].map(
+                (mission, index) => (
+                  <motion.div
+                    key={index}
+                    variants={textVariants}
+                    className="flex items-start space-x-4"
+                  >
+                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
+                      {index + 1}
+                    </div>
+                    <p className="text-lg text-gray-700 dark:text-gray-300 pt-1">
+                      {mission}
+                    </p>
+                  </motion.div>
+                )
+              )}
+            </div>
           </motion.div>
 
           {/* Core Values */}
@@ -107,57 +138,6 @@ export default function StoryPage() {
                     {value.description}
                   </p>
                 </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Our Mission */}
-          <motion.div variants={textVariants} className="space-y-6">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
-              {t("mission.title")}
-            </h2>
-            <div className="space-y-4">
-              {[
-                t("mission.item1"),
-                t("mission.item2"),
-                t("mission.item3"),
-                t("mission.item4"),
-              ].map((mission, index) => (
-                <motion.div
-                  key={index}
-                  variants={textVariants}
-                  className="flex items-start space-x-4"
-                >
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
-                    {index + 1}
-                  </div>
-                  <p className="text-lg text-gray-700 dark:text-gray-300 pt-1">
-                    {mission}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Partners Section */}
-          <motion.div variants={textVariants} className="space-y-6">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
-              {t("partners.title")}
-            </h2>
-            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-              {t("partners.description")}
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8">
-              {/* Placeholder for partner logos */}
-              {[1, 2, 3, 4].map((_, index) => (
-                <div
-                  key={index}
-                  className="aspect-square bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center"
-                >
-                  <span className="text-gray-400 dark:text-gray-600 text-sm">
-                    Partner Logo
-                  </span>
-                </div>
               ))}
             </div>
           </motion.div>

@@ -1,101 +1,98 @@
 {
   "nav": {
     "home": "Home",
-    "story": "UNs STORY",
-    "activities": "Webzine"
+    "story": "About",
+    "activities": "Magazine"
   },
   "home": {
     "hero": {
-      "title": "Peace Connects Us",
-      "subtitle": "The 2025 UNs Digital Hub",
-      "description": "Documenting our journey towards peace, global understanding, and meaningful connections through the voices of youth.",
-      "discoverStory": "Discover Our Story",
-      "exploreActivities": "Explore Activities"
+      "title": "Youth Building a Peaceful City of Busan",
+      "subtitle": "2025 Busan UN Week Supporters UNs",
+      "description": "Discover the special stories of 110 young people sharing the value of peace.",
+      "discoverStory": "About UNs",
+      "exploreActivities": "Explore Magazine"
     },
     "stats": {
-      "year": "2025",
-      "yearSubtitle": "Year of Peace",
-      "global": "Global",
-      "globalSubtitle": "Youth Movement",
-      "together": "Together",
-      "togetherSubtitle": "We Build Peace"
+      "year": "Activities",
+      "yearSubtitle": "From education to event planning and content creation, we share stories of peace through the eyes of youth",
+      "global": "Members",
+      "globalSubtitle": "110 UNs members bringing you live updates and authentic stories from the field",
+      "together": "UN Week",
+      "togetherSubtitle": "A special festival celebrating the 80th anniversary of the UN in Busan, the city of peace"
     },
     "cta": {
-      "title": "Join the Journey",
-      "description": "Explore our activities, stories, and the impact we're making together in building a peaceful world.",
-      "viewTimeline": "View Our Timeline"
+      "title": "Build Peace Together with UNs",
+      "description1": "Explore our magazine to see live activities and special moments.",
+      "description2": "The stories of youth dreaming of peace continue.",
+      "viewTimeline": "Visit UNs Magazine"
     }
   },
   "story": {
     "hero": {
-      "title": "UNs STORY",
-      "subtitle": "Who we are and what we stand for"
+      "title": "What is UNs?",
+      "subtitle": "Youth Supporters Building Busan as a City of Peace"
     },
     "vision": {
-      "title": "Our Vision",
-      "description1": "We are the 2025 Busan UNs Supporters - a diverse community of passionate young people from around the world, united by a shared commitment to peace, understanding, and positive global change.",
-      "description2": "Through our activities, we strive to embody the values of the United Nations, working together to create a more peaceful and interconnected world, one action at a time."
+      "title": "🇺🇳 UNs (UN Supporters)",
+      "description1": "Youth supporters who reflect on the significance of UN participation and communicate and spread the value of peace with citizens.",
+      "description2": "- Activity Period: April - December 2025 (9 months)",
+      "description3": "- Scale: Approximately 110 members (Korean and international students)",
+      "description4": "- Operated by: Busan Metropolitan City, Busan Global City Foundation"
     },
     "values": {
-      "title": "Core Values",
+      "title": "Key Activities",
       "globalYouth": {
-        "title": "Global Youth",
-        "description": "Empowering young voices to lead change and bridge cultures"
+        "title": "Education",
+        "description": "Professional education on international organizations and the UN, learning about peace, human rights, and development issues"
       },
       "peacefulDialogue": {
-        "title": "Peaceful Dialogue",
-        "description": "Fostering understanding through open and respectful communication"
+        "title": "Event Planning & Support",
+        "description": "Participation in planning major Busan UN Week events, on-site operation and facilitation support"
       },
       "dynamicAction": {
-        "title": "Dynamic Action",
-        "description": "Turning passion into tangible impact through collaborative efforts"
+        "title": "Promotional Content Creation",
+        "description": "Planning and producing various forms of SNS content including videos, posters, and card news"
       },
       "inclusiveCommunity": {
-        "title": "Inclusive Community",
-        "description": "Creating spaces where every voice is heard and valued"
+        "title": "Global Networking",
+        "description": "Exchange with domestic and international youth, opportunities to participate in international events"
       }
     },
     "mission": {
-      "title": "Our Mission",
-      "item1": "Document and preserve our journey towards peace and understanding",
-      "item2": "Create meaningful connections between diverse cultures and communities",
-      "item3": "Inspire future generations to continue the work of building a peaceful world",
-      "item4": "Provide a platform for youth voices in global peace initiatives"
-    },
-    "partners": {
-      "title": "Our Partners",
-      "description": "We work closely with local and international organizations who share our vision for a peaceful future. Together, we amplify our impact and reach."
+      "title": "Vision & Mission",
+      "item1": "Leading the operation of UN Week projects by Busan youth",
+      "item2": "Pioneering the branding of Busan as a global center for peace",
+      "item3": "Promoting the meaning and value of Busan UN Week for the 80th anniversary of the UN"
     },
     "cta": {
-      "title": "Be Part of Our Story",
-      "description": "Explore our activities and see how we're making a difference",
-      "viewTimeline": "View Our Timeline"
+      "title": "Build Peace Together with UNs",
+      "description": "Meet our activities as we work together to create a peaceful world.",
+      "viewTimeline": "2025 UNs Activity Highlights"
     }
   },
   "timeline": {
     "hero": {
-      "title": "Activities & Archive",
-      "subtitle": "Explore our journey through the events that shaped our mission for peace"
-    },
-    "ourJourney": "Our Journey"
+      "title": "UNs Magazine",
+      "subtitle": "Discover the activities of 2025 Busan UN Week Supporters UNs through our magazine"
+    }
   },
   "events": {
-    "backToTimeline": "Back to Timeline",
+    "backToTimeline": "Back to Magazine List",
     "videos": "Videos",
     "photoGallery": "Photo Gallery",
-    "exploreMore": "Explore More Events",
+    "exploreMore": "Explore More Articles",
     "noImages": "No images available"
   },
   "footer": {
-    "title": "Peace Connects Us",
-    "description": "2025 Busan UNs Digital Hub - Documenting our journey towards peace and global understanding.",
+    "title": "2025 Busan UN Week Supporters UNs",
+    "description": "Youth building a peaceful city of Busan. Discover the special stories of 110 young people sharing the value of peace.",
     "quickLinks": "Quick Links",
     "connect": "Connect",
-    "rights": "© 2025 Busan UNs Supporters. All rights reserved."
+    "rights": "© 2025 Busan UN Week Supporters UNs. All rights reserved."
   },
   "notFound": {
     "title": "Page Not Found",
-    "description": "Sorry, the page you're looking for doesn't exist.",
-    "goHome": "Go Home"
+    "description": "Sorry, the page you are looking for does not exist.",
+    "goHome": "Go to Main Page"
   }
 }
