@@ -4,14 +4,16 @@ module.exports = {
       name: 'uns-nextjs',
       cwd: '/home/ubuntu/UNS_WEBZINE_BACKUP',
       script: 'npm',
-      args: 'run dev',
+      args: 'start',
       instances: 1,
       autorestart: true,
       watch: false,
       max_memory_restart: '1G',
       env: {
-        NODE_ENV: 'development',
-        PORT: 3000
+        NODE_ENV: 'production',
+        PORT: 3000,
+        NEXT_PUBLIC_STRAPI_URL: 'https://api.unswebzine.space',
+        STRAPI_API_TOKEN: 'REMOVED_STRAPI_API_TOKEN'
       },
       error_file: '/home/ubuntu/.pm2/logs/uns-nextjs-error.log',
       out_file: '/home/ubuntu/.pm2/logs/uns-nextjs-out.log',
