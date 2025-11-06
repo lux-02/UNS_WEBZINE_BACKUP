@@ -33,7 +33,7 @@ export async function getEvents(locale: string = "ko"): Promise<Event[]> {
       locale,
       populate: "*",
       "filters[published][$eq]": true,
-      "sort[0]": "date:desc",
+      "sort[0]": "date:asc", // Sort by date ascending (oldest first)
     });
 
     return response.data.map(transformStrapiEvent);
@@ -93,9 +93,7 @@ export async function createEvent(
   eventData: Partial<StrapiEvent>
 ): Promise<Event | null> {
   try {
-    console.log("Sending to Strapi:", JSON.stringify(eventData, null, 2));
     const response = await post<StrapiEventResponse>("/events", eventData);
-    console.log("Strapi response:", JSON.stringify(response, null, 2));
     return transformStrapiEvent(response.data);
   } catch (error) {
     console.error("Error creating event:", error);
@@ -120,16 +118,14 @@ export async function updateEventBySlug(
       "filters[slug][$eq]": slug,
     });
 
-    console.log("Found events:", getResponse.data.length);
-
     if (getResponse.data.length === 0) {
       throw new Error("Event not found");
     }
 
     const documentId = getResponse.data[0].documentId;
-    console.log("Updating event with documentId:", documentId);
 
     // Remove fields that shouldn't be in update payload
+    // Note: Keep thumbnail if it's a number (media ID), remove if it's a string (URL)
     const {
       id,
       documentId: _,
@@ -137,10 +133,22 @@ export async function updateEventBySlug(
       updatedAt,
       publishedAt,
       locale: _locale,
+      slug: _slug,
+      images: _images,
+      videos: _videos,
       ...cleanedData
     } = eventData as any;
 
-    console.log("Event data to update:", JSON.stringify(cleanedData, null, 2));
+    // Remove thumbnail if it's a URL string, keep if it's a media ID (number)
+    if (
+      cleanedData.thumbnail &&
+      typeof cleanedData.thumbnail === "string" &&
+      cleanedData.thumbnail.startsWith("http")
+    ) {
+      delete cleanedData.thumbnail;
+    }
+
+    console.log("Cleaned data being sent to Strapi:", JSON.stringify(cleanedData, null, 2));
 
     // Update using documentId (Strapi v5) with locale query param
     // Note: The put() function will wrap this in { data: cleanedData } automatically
@@ -149,7 +157,6 @@ export async function updateEventBySlug(
       cleanedData
     );
 
-    console.log("Update response:", response);
     return transformStrapiEvent(response.data);
   } catch (error) {
     console.error("Error updating event:", error);
@@ -178,7 +185,34 @@ export async function updateEvent(
   }
 }
 
-// Delete event (admin only)
+// Delete event by slug (admin only)
+export async function deleteEventBySlug(
+  slug: string,
+  locale: string = "ko"
+): Promise<boolean> {
+  try {
+    // First, get the event to find its documentId
+    const getResponse = await get<StrapiEventsResponse>("/events", {
+      locale,
+      "filters[slug][$eq]": slug,
+    });
+
+    if (getResponse.data.length === 0) {
+      throw new Error("Event not found");
+    }
+
+    const documentId = getResponse.data[0].documentId;
+
+    // Delete using documentId
+    await del(`/events/${documentId}`);
+    return true;
+  } catch (error) {
+    console.error("Error deleting event:", error);
+    return false;
+  }
+}
+
+// Delete event by ID (admin only) - Legacy function
 export async function deleteEvent(id: number): Promise<boolean> {
   try {
     await del(`/events/${id}`);
@@ -190,7 +224,9 @@ export async function deleteEvent(id: number): Promise<boolean> {
 }
 
 // Upload media file
-export async function uploadMedia(file: File): Promise<string | null> {
+export async function uploadMedia(
+  file: File
+): Promise<{ url: string; id: number } | null> {
   try {
     const formData = new FormData();
     formData.append("files", file);
@@ -215,11 +251,15 @@ export async function uploadMedia(file: File): Promise<string | null> {
     }
 
     const data = await response.json();
+    const mediaId = data[0]?.id;
     const relativeUrl = data[0]?.url;
-    if (!relativeUrl) return null;
+    if (!relativeUrl || !mediaId) return null;
 
-    // Return full URL
-    return `${process.env.NEXT_PUBLIC_STRAPI_URL}${relativeUrl}`;
+    // Return both full URL and media ID
+    return {
+      url: `${process.env.NEXT_PUBLIC_STRAPI_URL}${relativeUrl}`,
+      id: mediaId,
+    };
   } catch (error) {
     console.error("Error uploading media:", error);
     return null;

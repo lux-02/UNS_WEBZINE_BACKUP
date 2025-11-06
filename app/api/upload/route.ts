@@ -14,16 +14,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const url = await uploadMedia(file);
+    const result = await uploadMedia(file);
 
-    if (!url) {
+    if (!result) {
       return NextResponse.json(
         { error: 'Failed to upload file', success: false },
         { status: 500 }
       );
     }
 
-    return NextResponse.json({ url, success: true });
+    return NextResponse.json({ url: result.url, id: result.id, success: true });
   } catch (error) {
     console.error('Error in POST /api/upload:', error);
     return NextResponse.json(

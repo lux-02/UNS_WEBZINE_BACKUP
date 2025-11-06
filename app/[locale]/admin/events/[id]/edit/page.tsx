@@ -22,7 +22,9 @@ export default function EditEventPage() {
     tags: "",
     published: false,
     locale: "ko",
+    thumbnail: "",
   });
+  const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
 
   useEffect(() => {
     fetchEvent();
@@ -55,7 +57,11 @@ export default function EditEventPage() {
         tags: Array.isArray(event.tags) ? event.tags.join(", ") : "",
         published: true, // Assuming published if we can fetch it
         locale: "ko",
+        thumbnail: event.thumbnail || "",
       });
+      if (event.thumbnail) {
+        setThumbnailPreview(event.thumbnail);
+      }
     } catch (error) {
       console.error("Error fetching event:", error);
       alert("Failed to load event");
@@ -94,12 +100,28 @@ export default function EditEventPage() {
       ? [...new Set(matches.map((tag) => tag.substring(1)))].join(", ") // Remove # and join
       : "";
 
+    // Log to console instead of displaying in UI
+    console.log("Auto-generated Information:", { description, tags });
+
     setFormData((prev) => ({
       ...prev,
       content,
       description,
       tags,
     }));
+  };
+
+  const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setThumbnailPreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setThumbnailPreview(formData.thumbnail); // Revert to original if no file is selected
+    }
   };
 
   const generateSlug = () => {
@@ -126,18 +148,31 @@ export default function EditEventPage() {
     setSaving(true);
 
     try {
-      // We need to get the numeric ID from Strapi for the update
-      // For now, we'll use the slug to find it
-      const getResponse = await fetch(`/api/events/slug/${eventId}`);
-      const getData = await getResponse.json();
+      let thumbnailId = undefined;
+      const thumbnailFile = (
+        document.getElementById("thumbnail") as HTMLInputElement
+      ).files?.[0];
 
-      if (!getData.success || !getData.data) {
-        throw new Error("Event not found");
+      if (thumbnailFile) {
+        const uploadFormData = new FormData();
+        uploadFormData.append("file", thumbnailFile);
+
+        const uploadResponse = await fetch("/api/upload", {
+          method: "POST",
+          body: uploadFormData,
+        });
+
+        if (!uploadResponse.ok) {
+          throw new Error("Failed to upload thumbnail");
+        }
+
+        const uploadData = await uploadResponse.json();
+        thumbnailId = uploadData.id; // Use the media ID for Strapi v5
       }
 
       // Use our API route to update
       // Only send fields that exist in Strapi schema and are allowed to be updated
-      const updateData = {
+      const updateData: any = {
         title: formData.title,
         slug: formData.slug,
         date: formData.date,
@@ -150,6 +185,11 @@ export default function EditEventPage() {
         // Don't send locale - it's handled via query params
         // Don't send published - Strapi handles this via publishedAt
       };
+
+      // Only include thumbnail if a new one was uploaded
+      if (thumbnailId) {
+        updateData.thumbnail = thumbnailId;
+      }
 
       // Add locale as query parameter
       const response = await fetch(
@@ -172,7 +212,9 @@ export default function EditEventPage() {
       router.push(`/events/${formData.slug}`);
     } catch (error) {
       console.error("Error updating event:", error);
-      alert(error instanceof Error ? error.message : "Failed to update event");
+      alert(
+        error instanceof Error ? error.message : "Failed to update event"
+      );
     } finally {
       setSaving(false);
     }
@@ -244,6 +286,33 @@ export default function EditEventPage() {
               />
             </div>
 
+            {/* Thumbnail */}
+            <div>
+              <label
+                htmlFor="thumbnail"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >
+                Thumbnail Image
+              </label>
+              <input
+                type="file"
+                id="thumbnail"
+                name="thumbnail"
+                accept="image/*"
+                onChange={handleThumbnailChange}
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+              />
+              {thumbnailPreview && (
+                <div className="mt-4">
+                  <img
+                    src={thumbnailPreview}
+                    alt="Thumbnail preview"
+                    className="w-full max-w-xs rounded-lg shadow-md"
+                  />
+                </div>
+              )}
+            </div>
+
             {/* Description - Hidden, auto-generated from content */}
             <input
               type="hidden"
@@ -254,55 +323,11 @@ export default function EditEventPage() {
             {/* Tags - Hidden, auto-extracted from content hashtags */}
             <input type="hidden" name="tags" value={formData.tags} />
 
-            {/* Auto-generated info display */}
-            {(formData.description || formData.tags) && (
-              <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-                <h3 className="text-sm font-semibold text-blue-900 dark:text-blue-100 mb-2">
-                  Auto-generated Information
-                </h3>
-                {formData.description && (
-                  <div className="mb-2">
-                    <span className="text-xs font-medium text-blue-700 dark:text-blue-300">
-                      Description:
-                    </span>
-                    <p className="text-sm text-blue-800 dark:text-blue-200 mt-1">
-                      {formData.description} ...
-                    </p>
-                  </div>
-                )}
-                {formData.tags && (
-                  <div>
-                    <span className="text-xs font-medium text-blue-700 dark:text-blue-300">
-                      Tags:
-                    </span>
-                    <p className="text-sm text-blue-800 dark:text-blue-200 mt-1">
-                      {formData.tags}
-                    </p>
-                  </div>
-                )}
-              </div>
-            )}
+            {/* Locale - Hidden, fixed to 'ko' */}
+            <input type="hidden" name="locale" value={formData.locale} />
 
-            {/* Locale */}
-            <div>
-              <label
-                htmlFor="locale"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-              >
-                Language *
-              </label>
-              <select
-                id="locale"
-                name="locale"
-                required
-                value={formData.locale}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-              >
-                <option value="ko">한국어</option>
-                <option value="en">English</option>
-              </select>
-            </div>
+            {/* Published - Hidden, always true */}
+            <input type="hidden" name="published" value="true" />
 
             {/* Content Editor */}
             <div>
@@ -313,24 +338,6 @@ export default function EditEventPage() {
                 content={formData.content}
                 onChange={handleContentChange}
               />
-            </div>
-
-            {/* Published */}
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                id="published"
-                name="published"
-                checked={formData.published}
-                onChange={handleChange}
-                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label
-                htmlFor="published"
-                className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300"
-              >
-                Published
-              </label>
             </div>
 
             {/* Submit Buttons */}

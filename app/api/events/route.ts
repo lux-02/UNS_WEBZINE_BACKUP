@@ -23,8 +23,6 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    console.log("Creating event with data:", JSON.stringify(body, null, 2));
-
     const event = await createEvent(body);
 
     if (!event) {
@@ -35,7 +33,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log("Event created successfully:", event);
     return NextResponse.json({ data: event, success: true }, { status: 201 });
   } catch (error) {
     console.error("Error in POST /api/events:", error);

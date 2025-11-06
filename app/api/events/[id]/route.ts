@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { updateEventBySlug, deleteEvent } from "@/lib/api/events";
+import { updateEventBySlug, deleteEventBySlug } from "@/lib/api/events";
 
 // PUT /api/events/[id] - Update event by slug
 export async function PUT(
@@ -13,10 +13,6 @@ export async function PUT(
     // Get locale from query params or default to 'ko'
     const { searchParams } = new URL(request.url);
     const locale = searchParams.get("locale") || "ko";
-
-    console.log("Updating event with slug:", id);
-    console.log("Locale:", locale);
-    console.log("Request body:", JSON.stringify(body, null, 2));
 
     const event = await updateEventBySlug(id, body, locale);
 
@@ -39,15 +35,19 @@ export async function PUT(
   }
 }
 
-// DELETE /api/events/[id] - Delete event
+// DELETE /api/events/[id] - Delete event by slug
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await params;
+    const { id } = await params; // This is actually the slug
 
-    const success = await deleteEvent(parseInt(id));
+    // Get locale from query params or default to 'ko'
+    const { searchParams } = new URL(request.url);
+    const locale = searchParams.get("locale") || "ko";
+
+    const success = await deleteEventBySlug(id, locale);
 
     if (!success) {
       return NextResponse.json(

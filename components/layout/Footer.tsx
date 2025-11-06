@@ -22,7 +22,9 @@ export default function Footer() {
           <div>
             <div className="flex space-x-4">
               <a
-                href="#"
+                href="https://www.youtube.com/@BGCF_OFFICIAL"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-blue-400 transition-colors"
                 aria-label="YouTube"
               >
@@ -39,7 +41,9 @@ export default function Footer() {
               </a>
 
               <a
-                href="#"
+                href="https://www.instagram.com/uns_peaceweek/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-blue-400 transition-colors"
                 aria-label="Instagram"
               >
@@ -53,7 +57,9 @@ export default function Footer() {
               </a>
 
               <a
-                href="#"
+                href="https://blog.naver.com/uns_peaceweek"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-blue-400 transition-colors"
                 aria-label="naver Blog"
               >

@@ -48,8 +48,19 @@ export async function post<T>(endpoint: string, data: any): Promise<T> {
 
 // Generic PUT request
 export async function put<T>(endpoint: string, data: any): Promise<T> {
-  const response = await strapiClient.put<T>(endpoint, { data });
-  return response.data;
+  try {
+    const response = await strapiClient.put<T>(endpoint, { data });
+    return response.data;
+  } catch (error: any) {
+    if (error.response) {
+      console.error("Strapi PUT Error Response:", {
+        status: error.response.status,
+        statusText: error.response.statusText,
+        data: error.response.data,
+      });
+    }
+    throw error;
+  }
 }
 
 // Generic DELETE request
