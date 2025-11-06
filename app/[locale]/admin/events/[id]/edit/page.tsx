@@ -22,7 +22,9 @@ export default function EditEventPage() {
     tags: "",
     published: false,
     locale: "ko",
+    thumbnail: "",
   });
+  const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
 
   useEffect(() => {
     fetchEvent();
@@ -55,7 +57,11 @@ export default function EditEventPage() {
         tags: Array.isArray(event.tags) ? event.tags.join(", ") : "",
         published: true, // Assuming published if we can fetch it
         locale: "ko",
+        thumbnail: event.thumbnail || "",
       });
+      if (event.thumbnail) {
+        setThumbnailPreview(event.thumbnail);
+      }
     } catch (error) {
       console.error("Error fetching event:", error);
       alert("Failed to load event");
@@ -102,6 +108,19 @@ export default function EditEventPage() {
     }));
   };
 
+  const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setThumbnailPreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setThumbnailPreview(formData.thumbnail); // Revert to original if no file is selected
+    }
+  };
+
   const generateSlug = () => {
     // Remove Korean characters and only keep English letters, numbers
     const baseSlug = formData.title
@@ -126,13 +145,26 @@ export default function EditEventPage() {
     setSaving(true);
 
     try {
-      // We need to get the numeric ID from Strapi for the update
-      // For now, we'll use the slug to find it
-      const getResponse = await fetch(`/api/events/slug/${eventId}`);
-      const getData = await getResponse.json();
+      let thumbnailUrl = formData.thumbnail;
+      const thumbnailFile = (
+        document.getElementById("thumbnail") as HTMLInputElement
+      ).files?.[0];
 
-      if (!getData.success || !getData.data) {
-        throw new Error("Event not found");
+      if (thumbnailFile) {
+        const uploadFormData = new FormData();
+        uploadFormData.append("file", thumbnailFile);
+
+        const uploadResponse = await fetch("/api/upload", {
+          method: "POST",
+          body: uploadFormData,
+        });
+
+        if (!uploadResponse.ok) {
+          throw new Error("Failed to upload thumbnail");
+        }
+
+        const uploadData = await uploadResponse.json();
+        thumbnailUrl = uploadData.url; // Assuming the API returns { url: '...' }
       }
 
       // Use our API route to update
@@ -143,6 +175,7 @@ export default function EditEventPage() {
         date: formData.date,
         description: formData.description,
         content: formData.content,
+        thumbnail: thumbnailUrl,
         tags: formData.tags
           .split(",")
           .map((tag) => tag.trim())
@@ -172,7 +205,9 @@ export default function EditEventPage() {
       router.push(`/events/${formData.slug}`);
     } catch (error) {
       console.error("Error updating event:", error);
-      alert(error instanceof Error ? error.message : "Failed to update event");
+      alert(
+        error instanceof Error ? error.message : "Failed to update event"
+      );
     } finally {
       setSaving(false);
     }
@@ -242,6 +277,33 @@ export default function EditEventPage() {
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
               />
+            </div>
+
+            {/* Thumbnail */}
+            <div>
+              <label
+                htmlFor="thumbnail"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >
+                Thumbnail Image
+              </label>
+              <input
+                type="file"
+                id="thumbnail"
+                name="thumbnail"
+                accept="image/*"
+                onChange={handleThumbnailChange}
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+              />
+              {thumbnailPreview && (
+                <div className="mt-4">
+                  <img
+                    src={thumbnailPreview}
+                    alt="Thumbnail preview"
+                    className="w-full max-w-xs rounded-lg shadow-md"
+                  />
+                </div>
+              )}
             </div>
 
             {/* Description - Hidden, auto-generated from content */}

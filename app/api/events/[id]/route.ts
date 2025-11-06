@@ -14,10 +14,6 @@ export async function PUT(
     const { searchParams } = new URL(request.url);
     const locale = searchParams.get("locale") || "ko";
 
-    console.log("Updating event with slug:", id);
-    console.log("Locale:", locale);
-    console.log("Request body:", JSON.stringify(body, null, 2));
-
     const event = await updateEventBySlug(id, body, locale);
 
     if (!event) {

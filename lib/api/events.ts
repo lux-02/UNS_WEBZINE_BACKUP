@@ -93,9 +93,7 @@ export async function createEvent(
   eventData: Partial<StrapiEvent>
 ): Promise<Event | null> {
   try {
-    console.log("Sending to Strapi:", JSON.stringify(eventData, null, 2));
     const response = await post<StrapiEventResponse>("/events", eventData);
-    console.log("Strapi response:", JSON.stringify(response, null, 2));
     return transformStrapiEvent(response.data);
   } catch (error) {
     console.error("Error creating event:", error);
@@ -120,14 +118,11 @@ export async function updateEventBySlug(
       "filters[slug][$eq]": slug,
     });
 
-    console.log("Found events:", getResponse.data.length);
-
     if (getResponse.data.length === 0) {
       throw new Error("Event not found");
     }
 
     const documentId = getResponse.data[0].documentId;
-    console.log("Updating event with documentId:", documentId);
 
     // Remove fields that shouldn't be in update payload
     const {
@@ -140,8 +135,6 @@ export async function updateEventBySlug(
       ...cleanedData
     } = eventData as any;
 
-    console.log("Event data to update:", JSON.stringify(cleanedData, null, 2));
-
     // Update using documentId (Strapi v5) with locale query param
     // Note: The put() function will wrap this in { data: cleanedData } automatically
     const response = await put<StrapiEventResponse>(
@@ -149,7 +142,6 @@ export async function updateEventBySlug(
       cleanedData
     );
 
-    console.log("Update response:", response);
     return transformStrapiEvent(response.data);
   } catch (error) {
     console.error("Error updating event:", error);

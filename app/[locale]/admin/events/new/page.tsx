@@ -17,7 +17,10 @@ export default function NewEventPage() {
     tags: "",
     published: false,
     locale: "ko",
+    thumbnail: "",
   });
+  const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
+
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -57,6 +60,19 @@ export default function NewEventPage() {
     }));
   };
 
+  const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setThumbnailPreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setThumbnailPreview(null);
+    }
+  };
+
   const generateSlug = () => {
     // Remove Korean characters and only keep English letters, numbers
     const baseSlug = formData.title
@@ -81,6 +97,26 @@ export default function NewEventPage() {
     setLoading(true);
 
     try {
+      let thumbnailUrl = "";
+      const thumbnailFile = (document.getElementById("thumbnail") as HTMLInputElement).files?.[0];
+
+      if (thumbnailFile) {
+        const uploadFormData = new FormData();
+        uploadFormData.append("file", thumbnailFile);
+
+        const uploadResponse = await fetch("/api/upload", {
+          method: "POST",
+          body: uploadFormData,
+        });
+
+        if (!uploadResponse.ok) {
+          throw new Error("Failed to upload thumbnail");
+        }
+
+        const uploadData = await uploadResponse.json();
+        thumbnailUrl = uploadData.url; // Assuming the API returns { url: '...' }
+      }
+
       const response = await fetch("/api/events", {
         method: "POST",
         headers: {
@@ -88,6 +124,7 @@ export default function NewEventPage() {
         },
         body: JSON.stringify({
           ...formData,
+          thumbnail: thumbnailUrl,
           tags: formData.tags.split(",").map((tag) => tag.trim()),
         }),
       });
@@ -166,6 +203,33 @@ export default function NewEventPage() {
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
               />
+            </div>
+
+            {/* Thumbnail */}
+            <div>
+              <label
+                htmlFor="thumbnail"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >
+                Thumbnail Image
+              </label>
+              <input
+                type="file"
+                id="thumbnail"
+                name="thumbnail"
+                accept="image/*"
+                onChange={handleThumbnailChange}
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+              />
+              {thumbnailPreview && (
+                <div className="mt-4">
+                  <img
+                    src={thumbnailPreview}
+                    alt="Thumbnail preview"
+                    className="w-full max-w-xs rounded-lg shadow-md"
+                  />
+                </div>
+              )}
             </div>
 
             {/* Description - Hidden, auto-generated from content */}
