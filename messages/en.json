@@ -2,7 +2,7 @@
   "nav": {
     "home": "Home",
     "story": "About",
-    "activities": "Magazine"
+    "activities": "Webzine"
   },
   "home": {
     "hero": {
@@ -10,7 +10,7 @@
       "subtitle": "2025 Busan UN Week Supporters UNs",
       "description": "Discover the special stories of 110 young people sharing the value of peace.",
       "discoverStory": "About UNs",
-      "exploreActivities": "Explore Magazine"
+      "exploreActivities": "Explore Webzine"
     },
     "stats": {
       "year": "Activities",
@@ -22,9 +22,9 @@
     },
     "cta": {
       "title": "Build Peace Together with UNs",
-      "description1": "Explore our magazine to see live activities and special moments.",
+      "description1": "Explore our webzine to see live activities and special moments.",
       "description2": "The stories of youth dreaming of peace continue.",
-      "viewTimeline": "Visit UNs Magazine"
+      "viewTimeline": "Visit UNs Webzine"
     }
   },
   "story": {
@@ -72,12 +72,12 @@
   },
   "timeline": {
     "hero": {
-      "title": "UNs Magazine",
-      "subtitle": "Discover the activities of 2025 Busan UN Week Supporters UNs through our magazine"
+      "title": "UNs Webzine",
+      "subtitle": "Discover the activities of 2025 Busan UN Week Supporters UNs through our webzine"
     }
   },
   "events": {
-    "backToTimeline": "Back to Magazine List",
+    "backToTimeline": "Back to Webzine List",
     "videos": "Videos",
     "photoGallery": "Photo Gallery",
     "exploreMore": "Explore More Articles",
