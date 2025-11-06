@@ -125,16 +125,16 @@ export async function updateEventBySlug(
     const documentId = getResponse.data[0].documentId;
 
     // Remove fields that shouldn't be in update payload
-    const {
-      id,
-      documentId: _,
-      createdAt,
-      updatedAt,
-      publishedAt,
-      locale: _locale,
-      ...cleanedData
-    } = eventData as any;
-
+        const {                                                                                                                           
+          id,                                                                                                                              
+          documentId: _,                                                                                                                  
+          createdAt,                                                                                                                      
+          updatedAt,                                                                                                                      
+          publishedAt,                                                                                                                    
+          locale: _locale,                                                                                                                
+          slug: _slug,                                                                                                                    
+          ...cleanedData                                                                                                                  
+        } = eventData as any;
     // Update using documentId (Strapi v5) with locale query param
     // Note: The put() function will wrap this in { data: cleanedData } automatically
     const response = await put<StrapiEventResponse>(
