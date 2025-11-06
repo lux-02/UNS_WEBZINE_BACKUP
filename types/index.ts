@@ -4,6 +4,7 @@ export interface Event {
   date: string;
   description: string;
   thumbnail: string;
+  thumbnailId?: number;
   category: string;
   tags: string[];
   images?: string[];

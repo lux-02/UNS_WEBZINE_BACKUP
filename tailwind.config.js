@@ -31,8 +31,9 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
+        sans: ["Paperozi", "system-ui", "sans-serif"],
         mono: ["var(--font-geist-mono)", "monospace"],
+        paperozi: ["Paperozi", "sans-serif"],
       },
       animation: {
         "fade-in": "fadeIn 0.6s ease-in-out",
