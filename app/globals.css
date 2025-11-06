@@ -114,7 +114,7 @@
 
 body {
   color: var(--foreground);
-  background: red;
+  background: var(--background);
   font-family: var(--font-geist-sans);
 }
 
