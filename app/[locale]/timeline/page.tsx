@@ -3,6 +3,11 @@ import { mockEvents } from "@/lib/mockData";
 import { getEvents } from "@/lib/api/events";
 import { getTranslations } from "next-intl/server";
 
+// Make this page dynamic to always fetch fresh data
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+export const fetchCache = 'force-no-store';
+
 export default async function TimelinePage({
   params,
 }: {
@@ -10,6 +15,8 @@ export default async function TimelinePage({
 }) {
   const { locale } = await params;
   const t = await getTranslations("timeline");
+
+  console.log("Timeline page rendering for locale:", locale);
 
   // Try to fetch events from Strapi, fallback to mock data if Strapi is not available
   let events = mockEvents;

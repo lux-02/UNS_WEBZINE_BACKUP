@@ -25,6 +25,7 @@ export default function EditEventPage() {
     thumbnail: "",
   });
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
+  const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
 
   useEffect(() => {
     fetchEvent();
@@ -62,6 +63,7 @@ export default function EditEventPage() {
       if (event.thumbnail) {
         setThumbnailPreview(event.thumbnail);
       }
+      setThumbnailFile(null); // Reset thumbnail file when loading event
     } catch (error) {
       console.error("Error fetching event:", error);
       alert("Failed to load event");
@@ -114,12 +116,14 @@ export default function EditEventPage() {
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      setThumbnailFile(file); // Save file to state
       const reader = new FileReader();
       reader.onloadend = () => {
         setThumbnailPreview(reader.result as string);
       };
       reader.readAsDataURL(file);
     } else {
+      setThumbnailFile(null);
       setThumbnailPreview(formData.thumbnail); // Revert to original if no file is selected
     }
   };
@@ -149,11 +153,10 @@ export default function EditEventPage() {
 
     try {
       let thumbnailId = undefined;
-      const thumbnailFile = (
-        document.getElementById("thumbnail") as HTMLInputElement
-      ).files?.[0];
 
+      // Use the file from state instead of DOM element
       if (thumbnailFile) {
+        console.log("Uploading thumbnail file:", thumbnailFile.name);
         const uploadFormData = new FormData();
         uploadFormData.append("file", thumbnailFile);
 
@@ -167,7 +170,11 @@ export default function EditEventPage() {
         }
 
         const uploadData = await uploadResponse.json();
+        console.log("Upload response:", uploadData);
         thumbnailId = uploadData.id; // Use the media ID for Strapi v5
+        console.log("Thumbnail ID:", thumbnailId);
+      } else {
+        console.log("No thumbnail file to upload");
       }
 
       // Use our API route to update
@@ -189,7 +196,10 @@ export default function EditEventPage() {
       // Only include thumbnail if a new one was uploaded
       if (thumbnailId) {
         updateData.thumbnail = thumbnailId;
+        console.log("Adding thumbnail to update data:", thumbnailId);
       }
+
+      console.log("Update data being sent:", updateData);
 
       // Add locale as query parameter
       const response = await fetch(
@@ -202,6 +212,8 @@ export default function EditEventPage() {
           body: JSON.stringify(updateData),
         }
       );
+
+      console.log("Update response status:", response.status);
 
       if (!response.ok) {
         const errorData = await response.json();

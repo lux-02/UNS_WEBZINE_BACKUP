@@ -29,6 +29,7 @@ export function transformStrapiEvent(strapiEvent: StrapiEvent): Event {
 // Get all events
 export async function getEvents(locale: string = "ko"): Promise<Event[]> {
   try {
+    console.log("getEvents called for locale:", locale);
     const response = await get<StrapiEventsResponse>("/events", {
       locale,
       populate: "*",
@@ -36,7 +37,17 @@ export async function getEvents(locale: string = "ko"): Promise<Event[]> {
       "sort[0]": "date:asc", // Sort by date ascending (oldest first)
     });
 
-    return response.data.map(transformStrapiEvent);
+    console.log(`getEvents: Found ${response.data.length} events`);
+    const events = response.data.map(transformStrapiEvent);
+
+    // Log thumbnail info for debugging
+    events.forEach(event => {
+      if (event.id.includes('10-24')) {
+        console.log(`Event ${event.id} thumbnail:`, event.thumbnail);
+      }
+    });
+
+    return events;
   } catch (error) {
     console.error("Error fetching events:", error);
     return [];
@@ -139,24 +150,31 @@ export async function updateEventBySlug(
       ...cleanedData
     } = eventData as any;
 
+    console.log("Original eventData:", eventData);
+    console.log("Cleaned data before thumbnail check:", cleanedData);
+
     // Remove thumbnail if it's a URL string, keep if it's a media ID (number)
     if (
       cleanedData.thumbnail &&
       typeof cleanedData.thumbnail === "string" &&
       cleanedData.thumbnail.startsWith("http")
     ) {
+      console.log("Removing thumbnail URL from update:", cleanedData.thumbnail);
       delete cleanedData.thumbnail;
+    } else if (cleanedData.thumbnail) {
+      console.log("Keeping thumbnail ID for update:", cleanedData.thumbnail);
     }
 
     console.log("Cleaned data being sent to Strapi:", JSON.stringify(cleanedData, null, 2));
 
-    // Update using documentId (Strapi v5) with locale query param
+    // Update using documentId (Strapi v5) with locale and populate params
     // Note: The put() function will wrap this in { data: cleanedData } automatically
     const response = await put<StrapiEventResponse>(
-      `/events/${documentId}?locale=${locale}`,
+      `/events/${documentId}?locale=${locale}&populate=*`,
       cleanedData
     );
 
+    console.log("Strapi update response:", response);
     return transformStrapiEvent(response.data);
   } catch (error) {
     console.error("Error updating event:", error);

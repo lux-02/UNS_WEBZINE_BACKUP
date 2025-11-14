@@ -3,6 +3,10 @@ import { getEventBySlug, getEvents } from "@/lib/api/events";
 import { notFound } from "next/navigation";
 import EventDetailClient from "@/components/events/EventDetailClient";
 
+// Make this page dynamic to always fetch fresh data
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 interface EventPageProps {
   params: Promise<{ id: string; locale: string }>;
 }
