@@ -12,8 +12,11 @@ module.exports = {
       env: {
         NODE_ENV: 'production',
         PORT: 3000,
-        NEXT_PUBLIC_STRAPI_URL: 'https://api.unswebzine.space',
-        STRAPI_API_TOKEN: 'REMOVED_STRAPI_API_TOKEN'
+        NEXT_PUBLIC_STRAPI_URL: process.env.NEXT_PUBLIC_STRAPI_URL,
+        STRAPI_API_TOKEN: process.env.STRAPI_API_TOKEN,
+        NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+        ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
+        JWT_SECRET: process.env.JWT_SECRET
       },
       error_file: '/home/ubuntu/.pm2/logs/uns-nextjs-error.log',
       out_file: '/home/ubuntu/.pm2/logs/uns-nextjs-out.log',
